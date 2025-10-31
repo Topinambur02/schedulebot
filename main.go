@@ -14,7 +14,8 @@ import (
 
 func main() {
 	config := configs.NewConfig()
-	db := db.InitDB()
+	_ = db.InitClient()
+	sqliteDB := db.InitDB()
 	bot, err := tgbotapi.NewBotAPI(config.TELEGRAM_API_TOKEN)
 
 	if err != nil {
@@ -34,7 +35,7 @@ func main() {
 			messageText := update.Message.Text
 			user := model.User{Username: username, Tg_id: tgId, CreatedAt: time.Now()}
 
-			db.Create(&user)
+			sqliteDB.Create(&user)
 			log.Printf("User: %s, Message: %s", username, messageText)
 			
 			go handlers.HandleMessage(bot, update.Message)
