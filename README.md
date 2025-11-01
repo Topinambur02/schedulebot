@@ -4,9 +4,9 @@
 
 ### Используемые технологии:
 
-<img src="https://github.com/user-attachments/assets/50937523-df97-4fff-929e-0961f0555f4d" title="Golang" alt="golang" width="75" height="75"/>
-<img src="https://github.com/user-attachments/assets/387c9b9c-ce0f-49ef-9112-10de154d1ced" title="GORM" alt="gorm" width="75" height="75"/>
-<img src="https://github.com/user-attachments/assets/82b7f5a2-0559-48f7-beb9-9ecef32bd55c" title="SQLite3" alt="sqlite" width="75" height="75"/>
+<img src="https://github.com/user-attachments/assets/50937523-df97-4fff-929e-0961f0555f4d" title="Golang" alt="golang" width="110" height="110"/>
+<img src="https://github.com/user-attachments/assets/387c9b9c-ce0f-49ef-9112-10de154d1ced" title="GORM" alt="gorm" width="110" height="110"/>
+<img src="https://github.com/user-attachments/assets/ac914888-f3ac-421b-a690-4cf1c52afddd" title="SQLite3" alt="sqlite" width="110" height="110"/>
 <img src="https://github.com/user-attachments/assets/096102ab-304b-4b89-b2d6-08f76b1aaa76" title="Redis" alt="redis" width="75" height="75"/>
 <img src="https://github.com/user-attachments/assets/648aa8d0-0ba1-4362-a281-2e252e2ec97b" title="Docker" alt="docker" width="75" height="75"/>
 
