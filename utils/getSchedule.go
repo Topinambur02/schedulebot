@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"io"
 	"log"
@@ -19,7 +20,10 @@ func GetSchedule() (*model.ScheduleResponse, int) {
 
 	config := configs.NewConfig()
 	url := config.URL_GET_SCHEDULE_API + authResp.Token
-	client := &http.Client{Timeout: 10 * time.Second}
+	tr := &http.Transport{
+        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+    }
+	client := &http.Client{Transport: tr, Timeout: 10 * time.Second}
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
