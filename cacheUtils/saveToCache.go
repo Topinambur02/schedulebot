@@ -22,7 +22,7 @@ func SaveToCache(lessons []model.Lesson, redisDB *redis.Client, ctx context.Cont
 	}
 
 	expiration := time.Until(time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Add(24 * time.Hour))
-	err = redisDB.Set(ctx, "schedule:" + time.Now().Format("2006-01-02"), data, expiration).Err()
+	err = redisDB.Set(ctx, "schedule:"+time.Now().Format("2006-01-02"), data, expiration).Err()
 
 	if err != nil {
 		return err

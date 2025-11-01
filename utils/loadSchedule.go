@@ -14,7 +14,7 @@ var ctx = context.Background()
 func LoadSchedule() ([]model.Lesson, error) {
 	redisDB := db.GetClient()
 	cachedSchedule, err := cacheUtils.GetFromCache(redisDB, ctx)
-	
+
 	if err == nil {
 		return cachedSchedule, nil
 	}

@@ -22,8 +22,8 @@ func GetAuthToken() (*model.AuthResponse, int) {
 	formData.Set("ulogin", ulogin)
 	formData.Set("upassword", upassword)
 	tr := &http.Transport{
-        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-    }
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
 	client := &http.Client{Transport: tr}
 	req, err := http.NewRequest("POST", "https://e.mospolytech.ru/old/lk_api.php", bytes.NewBufferString(formData.Encode()))
 
@@ -55,7 +55,7 @@ func GetAuthToken() (*model.AuthResponse, int) {
 	}
 
 	var authResp model.AuthResponse
-	
+
 	if err := json.Unmarshal(body, &authResp); err != nil {
 		log.Println("Error parsing JSON: ", err)
 		return nil, 500

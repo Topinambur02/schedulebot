@@ -15,7 +15,7 @@ func GetFromCache(redisDB *redis.Client, ctx context.Context) ([]model.Lesson, e
 		return nil, fmt.Errorf("redis client not initialized")
 	}
 
-	data, err := redisDB.Get(ctx, "schedule:" + time.Now().Format("2006-01-02")).Result()
+	data, err := redisDB.Get(ctx, "schedule:"+time.Now().Format("2006-01-02")).Result()
 
 	if err != nil {
 		return nil, err
