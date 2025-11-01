@@ -17,7 +17,7 @@ var (
 
 func InitClient() *redis.Client {
 	redisOnce.Do(func() {
-		if err := godotenv.Load();err != nil {
+		if err := godotenv.Load(); err != nil {
 			log.Println("Error loading .env file, using system environment variables")
 		}
 

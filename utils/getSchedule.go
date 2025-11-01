@@ -21,8 +21,8 @@ func GetSchedule() (*model.ScheduleResponse, int) {
 	config := configs.NewConfig()
 	url := config.URL_GET_SCHEDULE_API + authResp.Token
 	tr := &http.Transport{
-        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-    }
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
 	client := &http.Client{Transport: tr, Timeout: 10 * time.Second}
 
 	req, err := http.NewRequest("GET", url, nil)
@@ -40,7 +40,7 @@ func GetSchedule() (*model.ScheduleResponse, int) {
 		log.Fatalln("Error making request:", err)
 		return nil, 500
 	}
-	
+
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {

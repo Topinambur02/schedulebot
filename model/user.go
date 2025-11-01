@@ -8,8 +8,8 @@ import (
 
 type User struct {
 	gorm.Model
-	ID			uint
-	Username	string
-	Tg_id		int64
-	CreatedAt	time.Time
+	ID        uint
+	Username  string
+	Tg_id     int64
+	CreatedAt time.Time
 }

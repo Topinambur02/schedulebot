@@ -37,7 +37,7 @@ func main() {
 
 			sqliteDB.Create(&user)
 			log.Printf("User: %s, Message: %s", username, messageText)
-			
+
 			go handlers.HandleMessage(bot, update.Message)
 		}
 	}
