@@ -2,6 +2,7 @@ package utils
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"io"
 	"log"
@@ -20,8 +21,10 @@ func GetAuthToken() (*model.AuthResponse, int) {
 
 	formData.Set("ulogin", ulogin)
 	formData.Set("upassword", upassword)
-
-	client := &http.Client{}
+	tr := &http.Transport{
+        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+    }
+	client := &http.Client{Transport: tr}
 	req, err := http.NewRequest("POST", "https://e.mospolytech.ru/old/lk_api.php", bytes.NewBufferString(formData.Encode()))
 
 	if err != nil {
