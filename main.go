@@ -33,9 +33,24 @@ func main() {
 			tgId := update.Message.From.ID
 			username := update.Message.From.UserName
 			messageText := update.Message.Text
-			user := model.User{Username: username, Tg_id: tgId, CreatedAt: time.Now()}
+			var user model.User
+			result := sqliteDB.Where("tg_id = ?", tgId).First(&user)
+			
+			if result.Error != nil {
+				user = model.User{
+					Username:  username,
+					Tg_id:     tgId,
+					CreatedAt: time.Now(),
+				}
+				sqliteDB.Create(&user)
+				log.Printf("New user created: %s (ID: %d)", username, tgId)
+			} else {
+				if user.Username != username {
+					user.Username = username
+					sqliteDB.Save(&user)
+				}
+			}
 
-			sqliteDB.Create(&user)
 			log.Printf("User: %s, Message: %s", username, messageText)
 
 			go handlers.HandleMessage(bot, update.Message)
