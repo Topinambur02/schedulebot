@@ -11,6 +11,7 @@ func SendWelcomeMessage(bot *tgbotapi.BotAPI, chatID int64, role string) {
 
     rows := [][]tgbotapi.KeyboardButton{{
             tgbotapi.NewKeyboardButton("Показать текущее расписание"),
+            tgbotapi.NewKeyboardButton("Посмотреть расписание на завтра"),
         },
     }
 
