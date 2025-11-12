@@ -30,18 +30,31 @@ func InitDB() *Database {
 
 	config := configs.NewConfig()
 	user := model.User{
-		Username: config.ADMIN_USERNAME, 
-		Role: "ADMIN", 
-		CreatedAt: time.Now(), 
-		Tg_id: config.TG_ID,
+		Username:  config.ADMIN_USERNAME,
+		Role:      "ADMIN",
+		CreatedAt: time.Now(),
+		Tg_id:     config.TG_ID,
 	}
-	db.FirstOrCreate(&user)
+	db.Where(model.User{Tg_id: config.TG_ID}).FirstOrCreate(&user)
 
 	return &Database{Db: db}
 }
 
-func (d *Database) FindByTgID(tgId int64) *model.User {
+func (d *Database) FindByTgID(tgId int64) (*model.User, error) {
 	var user model.User
-	d.Db.Where("tg_id = ?", tgId).First(&user)
-	return &user
+	result := d.Db.Where("tg_id = ?", tgId).First(&user)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return &user, nil
+}
+
+func (d *Database) Create(user *model.User) error {
+	return d.Db.Create(&user).Error
+}
+
+func (d *Database) Update(user *model.User) error {
+	return d.Db.Save(user).Error
 }
