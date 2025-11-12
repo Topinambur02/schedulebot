@@ -11,5 +11,6 @@ type User struct {
 	ID        uint
 	Username  string
 	Tg_id     int64
+	Role	  string
 	CreatedAt time.Time
 }
