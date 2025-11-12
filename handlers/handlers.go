@@ -29,21 +29,17 @@ func HandleMessage(bot *tgbotapi.BotAPI, message *tgbotapi.Message, user model.U
 
 		if err != nil {
 			log.Fatalln("Failed to delete cache from redis")
-			msg := tgbotapi.NewMessage(message.Chat.ID, "❌ Failed to delete cache from redis")
-			if _, err := bot.Send(msg); err != nil {
-				log.Printf("Failed to send schedule message: %v", err)
-			}
+			utils.SendBotMessage("❌ Failed to delete cache from redis", message, bot)
 		}
 
-		msg := tgbotapi.NewMessage(message.Chat.ID, "✅ Success")
-		if _, err := bot.Send(msg); err != nil {
-			log.Printf("Failed to send schedule message: %v", err)
+		utils.SendBotMessage("✅ Success", message, bot)
+	case "Посмотреть расписание на завтра":
+		lessons, err := utils.LoadScheduleForTomorrow()
+		if err != nil {
+			panic("Error loading schedule!")
 		}
+		senders.SendSchedule(bot, message.Chat.ID, lessons)
 	default:
-		msg := tgbotapi.NewMessage(message.Chat.ID, "Error: Unknown command")
-		msg.ReplyToMessageID = message.MessageID
-		if _, err := bot.Send(msg); err != nil {
-			log.Printf("Failed to send schedule message: %v", err)
-		}
+		utils.SendBotMessage("Error: Unknown command", message, bot)
 	}
 }
