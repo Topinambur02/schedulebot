@@ -15,7 +15,7 @@ var (
 	redisOnce   sync.Once
 )
 
-func InitClient() *redis.Client {
+func InitRedisClient() *redis.Client {
 	redisOnce.Do(func() {
 		if err := godotenv.Load(); err != nil {
 			log.Println("Error loading .env file, using system environment variables")
@@ -39,7 +39,7 @@ func InitClient() *redis.Client {
 
 func GetClient() *redis.Client {
 	if redisClient == nil {
-		return InitClient()
+		return InitRedisClient()
 	}
 	return redisClient
 }

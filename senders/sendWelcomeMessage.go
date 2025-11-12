@@ -6,18 +6,27 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-func SendWelcomeMessage(bot *tgbotapi.BotAPI, chatID int64) {
-	text := "Добро пожаловать! Я бот с расписанием занятий.\nНажмите кнопку ниже чтобы показать текущее расписание"
+func SendWelcomeMessage(bot *tgbotapi.BotAPI, chatID int64, role string) {
+	text := "Добро пожаловать! Я бот с расписанием занятий.\nВыберите действие:"
 
-	keyboard := tgbotapi.NewReplyKeyboard(
-		tgbotapi.NewKeyboardButtonRow(
-			tgbotapi.NewKeyboardButton("Показать текущее расписание"),
-		),
-	)
+    rows := [][]tgbotapi.KeyboardButton{{
+            tgbotapi.NewKeyboardButton("Показать текущее расписание"),
+            tgbotapi.NewKeyboardButton("Посмотреть расписание на завтра"),
+        },
+    }
 
-	msg := tgbotapi.NewMessage(chatID, text)
-	msg.ReplyMarkup = keyboard
-	if _, err := bot.Send(msg); err != nil {
-		log.Printf("Failed to send schedule message: %v", err)
-	}
+    if role == "ADMIN" {
+        adminRow := tgbotapi.NewKeyboardButtonRow(
+            tgbotapi.NewKeyboardButton("Удалить кэш для Redis"),
+        )
+        rows = append(rows, adminRow)
+    }
+
+    keyboard := tgbotapi.NewReplyKeyboard(rows...)
+
+    msg := tgbotapi.NewMessage(chatID, text)
+    msg.ReplyMarkup = keyboard
+    if _, err := bot.Send(msg); err != nil {
+        log.Printf("Failed to send welcome message: %v", err)
+    }
 }

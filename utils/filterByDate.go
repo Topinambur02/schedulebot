@@ -6,9 +6,8 @@ import (
 	"topinambur02.com/m/v2/model"
 )
 
-func FilterByDate(lessons []model.Lesson) []model.Lesson {
+func FilterByDate(lessons []model.Lesson, targetDate time.Time) []model.Lesson {
 	var result []model.Lesson
-	targetDate := time.Now()
 
 	for _, lesson := range lessons {
 		start, end, err := parseDateInterval(lesson.DateInterval)
@@ -16,7 +15,8 @@ func FilterByDate(lessons []model.Lesson) []model.Lesson {
 			continue
 		}
 
-		if !targetDate.Before(start) && !targetDate.After(end) {
+		if (targetDate.Equal(start) || targetDate.After(start)) && 
+		   (targetDate.Equal(end) || targetDate.Before(end)) {
 			result = append(result, lesson)
 		}
 	}

@@ -6,9 +6,7 @@ import (
 	"topinambur02.com/m/v2/model"
 )
 
-func GetCurrentSchedule(schedule model.ScheduleResponse) model.DaySchedule {
-	day := time.Now().Weekday()
-
+func GetScheduleByWeekDay(schedule model.ScheduleResponse, day time.Weekday) model.DaySchedule {
 	switch day {
 	case time.Monday:
 		return schedule.Monday

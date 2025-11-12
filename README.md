@@ -45,8 +45,14 @@ URL_GET_SCHEDULE_API=https://example.com/api
 ULOGIN=login
 UPASSWORD=password
 
-#  База данных Redis (замените значения на свои!)
+# База данных Redis (замените значения на свои!)
 REDIS_ADDR=your_host:your_port
+
+# Имя пользователя для админа
+ADMIN_USERNAME=username
+
+# ID тг аккаунта админа
+TG_ID=123123
 ```
 
 3. Запустите с помощью Makefile скрипт:
