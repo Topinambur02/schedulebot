@@ -34,26 +34,27 @@ func main() {
 			username := update.Message.From.UserName
 			messageText := update.Message.Text
 			var user model.User
-			result := sqliteDB.Where("tg_id = ?", tgId).First(&user)
+			result := sqliteDB.Db.Where("tg_id = ?", tgId).First(&user)
 			
 			if result.Error != nil {
 				user = model.User{
 					Username:  username,
 					Tg_id:     tgId,
 					CreatedAt: time.Now(),
+					Role: "USER",
 				}
-				sqliteDB.Create(&user)
+				sqliteDB.Db.Create(&user)
 				log.Printf("New user created: %s (ID: %d)", username, tgId)
 			} else {
 				if user.Username != username {
 					user.Username = username
-					sqliteDB.Save(&user)
+					sqliteDB.Db.Save(&user)
 				}
 			}
 
 			log.Printf("User: %s, Message: %s", username, messageText)
 
-			go handlers.HandleMessage(bot, update.Message)
+			go handlers.HandleMessage(bot, update.Message, user)
 		}
 	}
 }

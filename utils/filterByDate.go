@@ -16,7 +16,8 @@ func FilterByDate(lessons []model.Lesson) []model.Lesson {
 			continue
 		}
 
-		if !targetDate.Before(start) && !targetDate.After(end) {
+		if (targetDate.Equal(start) || targetDate.After(start)) && 
+		   (targetDate.Equal(end) || targetDate.Before(end)) {
 			result = append(result, lesson)
 		}
 	}
